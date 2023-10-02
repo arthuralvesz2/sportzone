@@ -19,22 +19,11 @@ public class Pessoa {
 	private String email;
 	private String senha;
 	private String nome;
-	private String rg;
+	private String cpf;
 	private String telefone;
-	private String logradouro;
-	private String cep;
-	private String bairro;
-	private String uf;
 	private LocalDateTime dataNasc;
 	private boolean codStatusPessoa;
 	
-	private Long id;
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getEmail() {
 		return email;
 	}
@@ -53,41 +42,17 @@ public class Pessoa {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getRg() {
-		return rg;
+	public String getCpf() {
+		return cpf;
 	}
-	public void setRg(String rg) {
-		this.rg = rg;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	public String getTelefone() {
 		return telefone;
 	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}
-	public String getLogradouro() {
-		return logradouro;
-	}
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-	public String getCep() {
-		return cep;
-	}
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-	public String getBairro() {
-		return bairro;
-	}
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-	public String getUf() {
-		return uf;
-	}
-	public void setUf(String uf) {
-		this.uf = uf;
 	}
 	public LocalDateTime getDataNasc() {
 		return dataNasc;
@@ -101,5 +66,4 @@ public class Pessoa {
 	public void setCodStatusPessoa(boolean codStatusPessoa) {
 		this.codStatusPessoa = codStatusPessoa;
 	}
-	
 }
