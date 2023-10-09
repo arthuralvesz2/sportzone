@@ -1,6 +1,6 @@
 package com.itb.tcc.sportzone.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,20 +10,29 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="pessoas")
-public class Pessoa {
+@Table(name="usuario")
+public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
+	private Long id;
 	private String email;
 	private String senha;
 	private String nome;
 	private String cpf;
 	private String telefone;
-	private LocalDateTime dataNasc;
-	private boolean codStatusPessoa;
+	private LocalDate dataNasc;
+	private boolean codStatusUsuario;
 	
+	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -54,16 +63,16 @@ public class Pessoa {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	public LocalDateTime getDataNasc() {
+	public LocalDate getDataNasc() {
 		return dataNasc;
 	}
-	public void setDataNasc(LocalDateTime dataNasc) {
+	public void setDataNasc(LocalDate dataNasc) {
 		this.dataNasc = dataNasc;
 	}
-	public boolean getCodStatusPessoa() {
-		return codStatusPessoa;
+	public boolean getCodStatusUsuario() {
+		return codStatusUsuario;
 	}
-	public void setCodStatusPessoa(boolean codStatusPessoa) {
-		this.codStatusPessoa = codStatusPessoa;
+	public void setCodStatusUsuario(boolean codStatusUsuario) {
+		this.codStatusUsuario = codStatusUsuario;
 	}
 }
