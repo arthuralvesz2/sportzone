@@ -2,10 +2,10 @@
 <html>
 <head>
     <title> AKECY - Cadastro</title>
-    <link rel="shortcut icon" href="/sportzone/img/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/icon.png" type="image/x-icon">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/sportzone/css/style.css" />
-    <script type="text/javascript" src="/sportzone/js/JavaScript.js"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script type="text/javascript" src="/js/JavaScript.js"></script>
 
 </head>
 
@@ -14,16 +14,16 @@
     <main>
 
         <div class="esq">
-            <img src="/sportzone/img/voldest.png" class="voldest">
+            <img src="/img/voldest.png" class="voldest">
             <div id="logoh">
                 <a href="index - nologin.html">
-                    <img src="/sportzone/img/logo.png" class="imgdest"></a>
+                    <img src="/img/logo.png" class="imgdest"></a>
             </div>
         </div>
 
         <div class="dir">
             <form th:action="@{/sportzone/usuario/add-usuario}" th:object="${usuario}" method="post">
-                <h1 class="txt1l"> Crie seu cadastro </h1> <br> 
+                <h1 class="txt1l"> Crie seu cadastro </h1> <br> s
 
                 <label for="nome"> Nome completo </label> <br> <br>
                 <input id="nome" th:field="*{nome}" type="text" placeholder="Insira seu nome completo" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]+" required title="Por favor, Digite apenas letras!"> <br> <br>

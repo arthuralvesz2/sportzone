@@ -3,6 +3,8 @@ package com.itb.tcc.sportzone.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +25,7 @@ public class UsuarioController {
 	
 	
 	// Carregar formulário de Cadastro
-	@GetMapping("/novo-usuario")
+	@GetMapping("/cadastro")
 	public String showFormCadatroUsuario(Usuario usuario, Model model) {
 		
 		model.addAttribute("usuario", usuario);
