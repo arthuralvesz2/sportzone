@@ -1,0 +1,990 @@
+Certo, é o seguinte, eu quero cadastrar uma conta (email e uma senha) especiais de administrador, ou seja quando eu colocar esse email e senha de administrador e apertar no botão de entrar na conta na pagina (login) eu vou ser redirecionado para outra pagina (index - adm), teria como eu fazer isso? tipo, cadastrar no banco de dados essa conta de adminitsrador.
+
+Eu vou te enviar todos meus arquivos em texto para você analizar e me dizer como eu posso fazer isso, eu quero que vc me envie o código completo de toda mudança no arquivo que você fizer para fazer isso funcionar, lembrando que no código não precisa colocar comentários, eu não gosto, e além disso tudo, o mais importante, não precisa colocar segurança no spring, estou fazendo apenas um teste com meus amigos aqui, e não precisa de segurança ok?
+
+Provalvemente o seu código será muito grande, então cuidado para não alcançar o máximo de caracteres, se quiser pode dar umas pausas e falar "Posso continuar o código?", ai eu respondo "Sim!" e você continua, é só uma dica mesmo para você.
+
+Vou começar a enviar meus códigos, não precisa responder e nem analizar os códigos por enquanto ok? Apenas para você guardar e responder minhas perguntas depois.
+
+
+
+Arquivo: SportzoneApplication.java package com.itb.tcc.sportzone;
+
+import org.springframework.boot.SpringApplication;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SportzoneApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SportzoneApplication.class, args);
+	}
+
+}
+
+
+Arquivo: DateFormatConfiguration package com.itb.tcc.sportzone.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
+
+import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class DateFormatConfiguration implements WebMvcConfigurer {
+	
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
+		registrar.setUseIsoFormat(true);
+		registrar.registerFormatters(registry);
+	
+	}
+}
+
+
+Arquivo: UsuarioController.java package com.itb.tcc.sportzone.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import com.itb.tcc.sportzone.model.Usuario;
+import com.itb.tcc.sportzone.repository.UsuarioRepository;
+
+@Controller
+@RequestMapping("/sportzone/usuario")
+public class UsuarioController {
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+
+	@GetMapping("/cadastro")
+	public String showFormCadatroUsuario(Usuario usuario, Model model) {
+		
+		model.addAttribute("usuario", usuario);
+		
+		return "sportzone/cadastro";
+	}
+	
+	@PostMapping("/add-usuario")
+	public String insertUsuario(Usuario usuario, Model model) {
+		
+		usuario.setCodStatusUsuario(true);
+		
+		Usuario usuarioDb = usuarioRepository.save(usuario);
+		
+		return "redirect:/sportzone/usuario/login";
+    }
+    
+    @GetMapping("/login")
+    public String showFormLogin(Model model) {
+        model.addAttribute("usuario", new Usuario());
+        return "sportzone/login";
+    }
+    
+    @PostMapping("/verificar-login")
+    public String verifyLogin(@ModelAttribute Usuario usuario, Model model) {
+
+        Usuario usuarioDb = usuarioRepository.findByEmailAndSenha(usuario.getEmail(), usuario.getSenha());
+        
+        if (usuarioDb != null) {
+            return "redirect:/sportzone/usuario/index";
+        }
+        
+        else {
+            model.addAttribute("usuario", usuario);
+            model.addAttribute("mensagemErro", "Email ou senha inválidos");
+            return "sportzone/login";
+        }
+    }
+
+    @GetMapping("/index")
+    public String showIndex(Model model) {
+        return "sportzone/index";
+    }
+    
+    @GetMapping("/atualizar-produtos")
+    public String showAualizarProdutos(Model model) {
+        return "sportzone/atualizar-produtos";
+    }
+    
+    @GetMapping("/autenticacao")
+    public String showAutenticação(Model model) {
+        return "sportzone/autenticacao";
+    }
+    
+    @GetMapping("/autenticacao2")
+    public String showAutenticação2(Model model) {
+        return "sportzone/autenticacao2";
+    }
+    
+    @GetMapping("/cadastrar-produtos")
+    public String showCadastrarProdutos(Model model) {
+        return "sportzone/cadastrar-produtos";
+    }
+    
+    @GetMapping("/cartoes")
+    public String showCartões(Model model) {
+        return "sportzone/cartoes";
+    }
+    
+    @GetMapping("/cartoes-adicionado")
+    public String showCartõesAdicionado(Model model) {
+        return "sportzone/cartoes-adicionado";
+    }
+    
+    @GetMapping("/cartoes-editado")
+    public String showCartõesEditado(Model model) {
+        return "sportzone/cartoes-editado";
+    }
+    
+    @GetMapping("/cartoes-editar")
+    public String showCartõesEditar(Model model) {
+        return "sportzone/cartoes-editar";
+    }   
+    
+    @GetMapping("/cartoes-novo")
+    public String showCartõesNovo(Model model) {
+        return "sportzone/cartoes-novo";
+    }
+    
+    @GetMapping("/dados-pessoais")
+    public String showDadosPessoais(Model model) {
+        return "sportzone/dados-pessoais";
+    }
+    
+    @GetMapping("/dados-pessoais2")
+    public String showDadosPessoais2(Model model) {
+        return "sportzone/dados-pessoais2";
+    }
+    
+    @GetMapping("/enderecos")
+    public String showEndereços(Model model) {
+        return "sportzone/enderecos";
+    }
+    
+    @GetMapping("/enderecos-adicionado")
+    public String showEndereçosAdicionado(Model model) {
+        return "sportzone/enderecos-adicionado";
+    }
+    
+    @GetMapping("/enderecos-editado")
+    public String showEndereçosEditado(Model model) {
+        return "sportzone/enderecos-editado";
+    }
+    
+    @GetMapping("/enderecos-editar")
+    publ
+
+
+
+Arquivo: Usuario.java package com.itb.tcc.sportzone.model;
+
+import java.time.LocalDate;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+public class Usuario {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	private String email;
+	private String senha;
+	private String nome;
+	private String cpf;
+	private String telefone;
+	private LocalDate dataNasc;
+	private boolean codStatusUsuario;
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getSenha() {
+		return senha;
+	}
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getCpf() {
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	public String getTelefone() {
+		return telefone;
+	}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+	public LocalDate getDataNasc() {
+		return dataNasc;
+	}
+	public void setDataNasc(LocalDate dataNasc) {
+		this.dataNasc = dataNasc;
+	}
+	public boolean getCodStatusUsuario() {
+		return codStatusUsuario;
+	}
+	public void setCodStatusUsuario(boolean codStatusUsuario) {
+		this.codStatusUsuario = codStatusUsuario;
+	}
+}
+
+
+Arquivo: UsuarioRepository.java package com.itb.tcc.sportzone.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+import org.springframework.stereotype.Repository;
+
+import com.itb.tcc.sportzone.model.Usuario;
+
+
+@Repository
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+
+	public Usuario findByEmailAndSenha(String email, String senha);
+	public Usuario findByEmail(String email);
+}
+
+
+Arquivo: application.properties spring.datasource.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+spring.datasource.url=jdbc:sqlserver://localhost;databaseName=sportzone
+spring.datasource.username=sa
+spring.datasource.password=@ITB123456
+
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.open-in-view=true
+spring.jpa.properties.dialect=org.hibernate.dialect.SQLServer2016Dialect
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+
+
+Arquivo: Cadastro.html <!DOCTYPE html>
+<html>
+
+<head>
+    <title> AKECY - Cadastro</title>
+    <link rel="shortcut icon" href="/img/icon.png" type="image/x-icon">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/style.css" />
+    <script type="text/javascript" src="/js/JavaScript.js"></script>
+
+</head>
+
+<body class="log">
+
+    <main>
+
+        <div class="esq">
+            <img src="/img/voldest.png" class="voldest">
+            <div id="logoh">
+                <a href="index - nologin">
+                    <img src="/img/logo.png" class="imgdest"></a>
+            </div>
+        </div>
+
+        <div class="dir">
+            <form th:action="@{/sportzone/usuario/add-usuario}" th:object="${usuario}" method="post">
+                <h1 class="txt1l"> Crie seu cadastro </h1> <br>
+
+                <label for="nome"> Nome completo </label> <br> <br>
+                <input id="nome" th:field="*{nome}" type="text" placeholder="Insira seu nome completo"
+                    pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]+" required title="Por favor, Digite apenas letras!"> <br> <br>
+
+                <label for="email"> E-mail </label> <br> <br>
+                <input id="email" th:field="*{email}" type="email" placeholder="Insira seu e-mail" required
+                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"> <br> <br>
+
+                <label for="senha"> Senha </label> <br> <br>
+                <input id="senha" th:field="*{senha}" type="password" placeholder="********" minlength="7" class="menor"
+                    required> <br> <br>
+
+                <label for="senha2"> Repita a Senha </label> <br> <br>
+                <input id="senha2" type="password" placeholder="********" minlength="7" class="menor" required
+                    oninput="verificarSenhas()"> <br> <br>
+                <p id="mensagemSenha" style="color: red;"></p>
+
+                <label for="datanasc"> Data de nascimento </label> <br> <br>
+                <input id="datanasc" th:field="*{dataNasc}" type="date" placeholder="dd/mm/aaaa" maxlength="10"
+                    class="menor2" style="font-size: 18px; width: 200px;" required> <br> <br>
+
+                <label for="cpf"> CPF </label> <br> <br>
+                <input id="cpf" type="text" th:field="*{cpf}" minlength="14" maxlength="14" placeholder="000.000.000-00"
+                    class="menor2" required oninput="this.value = this.value.replace(/[^0-9]/g, ''); formatarCPF()">
+                <br> <br>
+
+                <label for="tele"> Telefone </label> <br> <br>
+                <input id="tele" type="text" th:field="*{telefone}" placeholder="(00) 00000-0000"
+                    pattern="\(\d{2}\) \d{5}-\d{4}" maxlength="15" minlength="15" class="menor2" style="width: 130px;;"
+                    required oninput="this.value = this.value.replace(/[^0-9]/g, ''); formatarTelefone()"> <br> <br>
+                <br>
+
+                <div class="centralizar">
+                    <input type="submit" class="buttonl" value="Cadastrar">
+                </div>
+
+                <div class="centralizar outrsl">
+                    <p> Já tem conta? <a class="linka" href="login"> Faça login aqui </a> </p>
+                </div>
+
+            </form>
+        </div>
+
+    </main>
+
+</body>
+
+</html>
+
+
+Arquivo: Login.html <!DOCTYPE html>
+<html>
+
+<head>
+    <title> AKECY - Login</title>
+    <link rel="shortcut icon" href="/img/icon.png" type="image/x-icon">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/style.css" />
+    <script type="text/javascript" src="/js/JavaScript.js"></script>
+
+</head>
+
+<body class="log">
+
+    <main>
+
+        <div class="esq">
+            <img src="/img/voldest.png" class="voldest">
+            <div id="logoh">
+                <a href="index - nologin">
+                    <img src="/img/logo.png" class="imgdest"></a>
+            </div>
+        </div>
+
+        <div class="dir">
+            <form th:action="@{/sportzone/usuario/verificar-login}" th:object="${usuario}" method="post">
+                <h1 class="txt1l"> Faça seu login </h1> <br> <br> <br>
+
+                <label for="email"> E-mail </label> <br> <br>
+                <input id="email" th:field="*{email}" type="email" placeholder="Insira seu e-mail" required> <br> <br>
+                <br>
+
+
+                <label for="senha"> Senha </label> <br> <br>
+                <input id="senha" th:field="*{senha}" type="password" minlength="7" placeholder="********" required>
+                <br> <br> <br> <br>
+
+                <p th:if="${mensagemErro != null}" th:text="${mensagemErro}" style="color: red;"></p>
+
+                <div class="centralizar">
+
+                    <input type="submit" class="buttonl" value="Entrar">
+                </div>
+
+                <div class="centralizar outrsl">
+                    <p> Não possui uma conta? <a class="linka" href="cadastro"> Crie aqui </a> </p>
+                    <p> Esqueceu sua senha? <a class="linka" href="mudar-senha"> Mude aqui </a> </p>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+</body>
+
+</html>
+
+
+Arquivo: Login.html <!DOCTYPE html>
+<html>
+
+<head>
+    <title> AKECY </title>
+    <link rel="shortcut icon" href="/img/icon.png" type="image/x-icon">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/style.css" />
+    <script type="text/javascript" src="/js/JavaScript.js"></script>
+
+</head>
+
+<body>
+    <header>
+
+        <div id="principal">
+            <div id="logoh">
+                <a href="index">
+                    <img src="/img/logo.png"></a>
+            </div>
+            <input type="text" id="barra-pesquisa" placeholder="O que você procura?">
+            <div id="usuario-container">
+                <a href="dados-pessoais">
+                    <img src="/img/user_avatar.png">
+                    <div id="nome-usuario">
+                        <p> Olá, <br> Minha conta </p>
+                </a>
+            </div>
+        </div>
+        <div id="carrinho">
+            <a href="carrinhodecompras">
+                <img src="/img/carrinho.png"></a>
+        </div>
+        </div>
+
+        <div id="semi">
+            <div id="categorias-container" class="linksemform">
+                <p> <a href="categoria"> Masculino </a> </p>
+                <p> <a href="categoria"> Feminino </a> </p>
+                <p> <a href="categoria"> Infantil </a> </p>
+                <p> <a href="categoria"> Acessórios </a> </p>
+                <p> <a href="categoria"> Equipamentos </a> </p>
+                <p> <a href="categoria"> Bolas </a> </p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <br> <br> <br> <a href="card1"> <img src="/img/card1.png" id="card"> </a> <br> <br> <br> <br> <br>
+        <h2 class="titulos-destaques"> Produtos em destaque </h2>
+        <div class="produtos">
+            <div class="item">
+                <a href="produto"> <img src="/img/dest1.png" class="itemimg"> </a>
+                <p class="n1"> Camiseta Nike Heritg <br> Masculina </p>
+                <p class="n2"> R$ 169,87 </p>
+                <p class="n3"> ou 5x de R$ 33,97 </p>
+            </div>
+            <div class="item">
+                <a href="produto"> <img src="/img/dest2.png" class="itemimg"> </a>
+                <p class="n1"> Tornozeleira de Peso A <br> Esportiva 2 KG </p>
+                <p class="n2"> R$ 69,87 </p>
+                <p class="n3"> ou 2x de R$ 34,93 </p>
+            </div>
+            <div class="item">
+                <a href="produto"> <img src="/img/dest3.png" class="itemimg"> </a>
+                <p class="n1"> Tênis New Balance 1080 V12 <br> Feminino </p>
+                <p class="n2"> R$ 999,87 </p>
+                <p class="n3"> ou 10x de R$ 99,98 </p>
+            </div>
+            <div class="item">
+                <a href="produto"> <img src="/img/dest4.png" class="itemimg"> </a>
+                <p class="n1"> Bola Futsal Penalty RX 500 <br> XXIII </p>
+                <p class="n2"> R$ 104,88 </p>
+                <p class="n3"> ou 3x de R$ 34,96 </p>
+            </div>
+            <div class="item">
+                <a href="produto"> <img src="/img/dest5.png" class="itemimg"> </a>
+                <p class="n1"> Camisa Puma Palmeiras | 2022 <br> Masculina </p>
+                <p class="n2"> R$ 199,87 </p>
+                <p class="n3"> ou 6x de R$ 33,31 </p>
+            </div>
+            <div class="item">
+                <a href="produto"> <img src="/img/dest6.png" class="itemimg"> </a>
+                <p class="n1"> Mochila de Trilha NH100 <br> 10 Litros </p>
+                <p class="n2"> R$ 37,98 </p>
+                <p class="n3"> ou 5x de R$ 18,99 </p>
+            </div>
+            <div class="item">
+                <a href="produto"> <img src="/img/dest7.png" class="itemimg"> </a>
+                <p class="n1"> Toalha de natação de microfibra </p>
+                <p class="n2"> R$ 44,98 </p>
+                <p class="n3"> ou 2x de R$ 22,49 </p>
+            </div>
+            <div class="item">
+                <a href="produto"> <img src="/img/dest8.png" class="itemimg"> </a>
+
+
+Arquivo: Index - Adm.html <!DOCTYPE html>
+<html>
+
+<head>
+    <title> AKECY </title>
+    <link rel="shortcut icon" href="/img/icon.png" type="image/x-icon">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/style.css" />
+    <script type="text/javascript" src="/js/JavaScript.js"></script>
+
+</head>
+
+<body>
+    <header>
+
+        <div id="principal">
+            <div id="logoh">
+                <a href="index - adm">
+                    <img src="/img/logo.png"></a>
+            </div>
+            <input type="text" id="barra-pesquisa" placeholder="Pesquisar produtos cadastrados.">
+            <div id="usuario-container">
+                <a href="index - nologin">
+                    <img src="/img/user_avatar.png">
+                    <div id="nome-usuario">
+                        <p> Olá, Roberto <br> Sair da conta </p>
+                </a>
+            </div>
+        </div>
+        </div>
+
+        <div id="semi">
+            <div id="categorias-container" class="linksemform">
+                <p> <a href="cadastrar-produtos"> Cadastrar produtos </a> </p>
+                <p> <a href="atualizar-produtos"> Atualizar produtos </a> </p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <br> <br>
+        <h2 class="titulos-destaques"> Produtos mais vistos </h2>
+        <div class="produtos">
+            <div class="item">
+                <img src="/img/dest1.png" class="itemimg">
+                <p class="n1"> Camiseta Nike Heritg <br> Masculina </p>
+                <p class="n2"> R$ 169,87 </p>
+                <a href="atualizar-produtos"> <button class="indatuadm"> Atualizar </button> </a>
+            </div>
+            <div class="item">
+                <img src="/img/dest2.png" class="itemimg">
+                <p class="n1"> Tornozeleira de Peso A <br> Esportiva 2 KG </p>
+                <p class="n2"> R$ 69,87 </p>
+                <a href="atualizar-produtos"> <button class="indatuadm"> Atualizar </button> </a>
+            </div>
+            <div class="item">
+                <img src="/img/dest3.png" class="itemimg">
+                <p class="n1"> Tênis New Balance 1080 V12 <br> Feminino </p>
+                <p class="n2"> R$ 999,87 </p>
+                <a href="atualizar-produtos"> <button class="indatuadm"> Atualizar </button> </a>
+            </div>
+            <div class="item">
+                <img src="/img/dest4.png" class="itemimg">
+                <p class="n1"> Bola Futsal Penalty RX 500 <br> XXIII </p>
+                <p class="n2"> R$ 104,88 </p>
+                <a href="atualizar-produtos"> <button class="indatuadm"> Atualizar </button> </a>
+            </div>
+            <div class="item">
+                <img src="/img/dest5.png" class="itemimg">
+                <p class="n1"> Camisa Puma Palmeiras | 2022 <br> Masculina </p>
+                <p class="n2"> R$ 199,87 </p>
+                <a href="atualizar-produtos"> <button class="indatuadm"> Atualizar </button> </a>
+            </div>
+            <div class="item">
+                <img src="/img/dest6.png" class="itemimg">
+                <p class="n1"> Mochila de Trilha NH100 <br> 10 Litros </p>
+                <p class="n2"> R$ 37,98 </p>
+                <a href="atualizar-produtos"> <button class="indatuadm"> Atualizar </button> </a>
+            </div>
+            <div class="item">
+                <img src="/img/dest7.png" class="itemimg">
+                <p class="n1"> Toalha de natação de microfibra </p>
+                <p class="n2"> R$ 44,98 </p>
+                <a href="atualizar-produtos"> <button class="indatuadm"> Atualizar </button> </a>
+            </div>
+            <div class="item">
+                <img src="/img/dest8.png" class="itemimg">
+                <p class="n1"> Touca de natação em malha nabaiji </p>
+                <p class="n2"> R$ 17,98 </p>
+                <a href="atualizar-produtos"> <button class="indatuadm"> Atualizar </button> </a>
+            </div>
+            <div class="item">
+                <
+
+
+Arquivo: style.css body {
+    font-family: sans-serif;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+a:link {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+a:active {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.linka:link {
+    color: #0086D0;
+    text-decoration: none;
+}
+
+.linka:active {
+    color: #0086D0;
+    text-decoration: none;
+}
+
+.linka:visited {
+    color: #0086D0;
+    text-decoration: none;
+}
+
+.linkb:link {
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.linkb:active {
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.linkb:visited {
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.linkg:link {
+    color: #000000;
+    text-decoration: none;
+    font-weight: lighter;
+}
+
+.linkg:active {
+    color: #000000;
+    text-decoration: none;
+    font-weight: lighter;
+}
+
+.linkg:visited {
+    color: #000000;
+    text-decoration: none;
+    font-weight: lighter;
+}
+
+.linkgc:link {
+    color: #000000;
+    font-weight: lighter;
+    text-decoration: underline;
+    margin-left: 10px;
+    font-size: 15px;
+}
+
+.linkgc:active {
+    color: #000000;
+    font-weight: lighter;
+    text-decoration: underline;
+}
+
+.linkgc:visited {
+    color: #313131;
+    font-weight: lighter;
+    text-decoration: underline;
+}
+
+.linko:link {
+    color: #FFA600;
+    text-decoration: none;
+    font-weight: lighter;
+}
+
+.linko:active {
+    color: #FFA600;
+    text-decoration: none;
+    font-weight: lighter;
+}
+
+.linko:visited {
+    color: #FFA600;
+    text-decoration: none;
+    font-weight: lighter;
+}
+
+.linkr:link {
+    color: #e22e2e;
+    text-decoration: none;
+    font-weight: lighter;
+}
+
+.linkr:active {
+    color: #e22e2e;
+    text-decoration: none;
+    font-weight: lighter;
+}
+
+.linkr:visited {
+    color: #e22e2e;
+    text-decoration: none;
+    font-weight: lighter;
+}
+
+label {
+    font-size: 30px;
+    font-weight: lighter;
+}
+
+input {
+    padding: 12px 20px;
+    border-radius: 5px;
+    border-width: 1px;
+    font-size: 16px;
+    width: 300px;
+    border-color: #00126B;
+}
+
+textarea {
+    padding: 12px 20px;
+    border-radius: 5px;
+    border-width: 1px;
+    font-size: 15px;
+    width: 500px;
+    border-color: #00126B;
+    font-family: sans-serif;
+}
+
+#principal {
+    width: 1872px;
+    height: 80px;
+    background-color: #ff9900;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    margin: 0;
+}
+
+#barra-pesquisa {
+    flex-grow: 1;
+    padding: 10px;
+    margin: 0 400px;
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: left;
+    margin-left: 19em;
+}
+
+#usuario-container {
+    display: flex;
+    align-items: center;
+}
+
+#nome-usuario {
+    font-size: 16px;
+    color: #FFF;
+    font-weight: 250;
+}
+
+#semi {
+    width: 1872px;
+    height: 2px;
+    background-color: #111111;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 20px;
+    margin: 0;
+    color: #FFF;
+    font-size: 20px;
+    justify-content: center;
+}
+
+#categorias-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+#site-footer {
+    background-color: #4a4a4a;
+    ;
+    padding: 35px 0 35px;
+    font-size: 15px;
+    line-height: 24px;
+    color: #ffffff;
+}
+
+#card {
+    width: 95%;
+    height: 95%;
+    margin: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+#footer-container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 0 20;
+}
+
+#logof {
+    margin-left: 34%;
+}
+
+#logofa {
+    margin-left: 41%;
+}
+
+#txtf {
+    font-size: 25px;
+    font-weight: 300;
+}
+
+#centralizarform {
+    text-align: left;
+}
+
+#formulario {
+    text-align: center;
+}
+
+.dir {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100vh;
+    margin-right: 33vh;
+}
+
+.voldest {
+
+Arquivo: JavaScript.js function validarCPF(cpf) {
+    cpf = cpf.replace(/\D/g, '');
+    if (cpf.length !== 11 || /^(.)\1+$/.test(cpf)) {
+        return false;
+    }
+
+    let soma = 0;
+    for (let i = 0; i < 9; i++) {
+        soma += parseInt(cpf.charAt(i)) * (10 - i);
+    }
+    let resto = 11 - (soma % 11);
+    let digito1 = resto === 10 || resto === 11 ? 0 : resto;
+
+    soma = 0;
+    for (let i = 0; i < 10; i++) {
+        soma += parseInt(cpf.charAt(i)) * (11 - i);
+    }
+    resto = 11 - (soma % 11);
+    let digito2 = resto === 10 || resto === 11 ? 0 : resto;
+
+    return cpf.charAt(9) == digito1 && cpf.charAt(10) == digito2;
+}
+
+function validarFormulario() {
+    const cpfInput = document.getElementById('cpf');
+    const cpf = cpfInput.value;
+
+    if (!validarCPF(cpf)) {
+        alert('CPF inválido! Por favor, insira um CPF válido.');
+        cpfInput.focus();
+        return false;
+    }
+
+    return true;
+}
+
+function formatarCPF(cpf) {
+    const input = document.getElementById('cpf');
+    let value = input.value.replace(/\D/g, '');
+
+    if (value.length >= 3) {
+        value = value.slice(0, 3) + '.' + value.slice(3);
+    }
+    if (value.length >= 7) {
+        value = value.slice(0, 7) + '.' + value.slice(7);
+    }
+    if (value.length >= 11) {
+        value = value.slice(0, 11) + '-' + value.slice(11);
+    }
+
+    input.value = value;
+
+
+}
+
+function verificarSenhas() {
+    const senha1 = document.getElementById('senha').value;
+    const senha2 = document.getElementById('senha2').value;
+    const mensagemSenha = document.getElementById('mensagemSenha');
+
+    if (senha1 === senha2) {
+        mensagemSenha.textContent = '';
+    } else {
+        mensagemSenha.textContent = 'As senhas não coincidem. Por favor, verifique.';
+    }
+}
+
+function formatarData() {
+    const input = document.getElementById('datanasc');
+    let value = input.value.replace(/\D/g, '');
+
+    if (value.length > 2) {
+        value = value.slice(0, 2) + '/' + value.slice(2);
+    }
+    if (value.length > 5) {
+        value = value.slice(0, 5) + '/' + value.slice(5, 9);
+    }
+
+    input.value = value;
+
+}
+
+function formatarTelefone() {
+    const telefoneInput = document.getElementById('tele');
+    let telefone = telefoneInput.value.replace(/\D/g, '');
+    
+    if (telefone.length >= 2) {
+        telefone = `(${telefone.slice(0, 2)}) ${telefone.slice(2)}`;
+    }
+    if (telefone.length >= 10) {
+        telefone = telefone.slice(0, 10) + '-' + telefone.slice(10);
+    }
+
+
+    telefoneInput.value = telefone;
+}
+
+function formconcluido() { alert("Mensagem enviada!"); }
+
+
+function prodcadastrado() { alert("O produto foi cadastrado com sucesso!"); }

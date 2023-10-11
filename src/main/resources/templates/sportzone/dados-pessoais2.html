@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> AKECY - Dados pessoais </title>
+    <link rel="shortcut icon" href="/img/icon.png" type="image/x-icon">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/style.css" />
+    <script type="text/javascript" src="/js/JavaScript.js"></script>
+
+</head>
+
+<body class="noy">
+    <header>
+
+        <div id="principal">
+            <div id="logoh">
+                <a href="index">
+                    <img src="/img/logo.png"></a>
+            </div>
+            <input type="text" id="barra-pesquisa" placeholder="O que você procura?">
+            <div id="usuario-container">
+                <a href="dados-pessoais">
+                    <img src="/img/user_avatar.png">
+                    <div id="nome-usuario">
+                        <p> Olá, Alexandre <br> Minha conta </p>
+                </a>
+            </div>
+        </div>
+        <div id="carrinho">
+            <a href="carrinhodecompras">
+                <img src="carrinho.png"></a>
+        </div>
+        </div>
+
+        <div id="semi">
+            <div id="categorias-container" class="linksemform">
+                <p> <a href="categoria"> Masculino </a> </p>
+                <p> <a href="categoria"> Feminino </a> </p>
+                <p> <a href="categoria"> Infantil </a> </p>
+                <p> <a href="categoria"> Acessórios </a> </p>
+                <p> <a href="categoria"> Equipamentos </a> </p>
+                <p> <a href="categoria"> Bolas </a> </p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <br>
+        <div class="selecionado1"></div>
+        <h3 class="minhaconta"> Minha conta </h3>
+        <div class="centralizarconta">
+            <div class="esqsec">
+                <a href="dados-pessoais" class="linkb">
+                    <p> Dados pessoais </p>
+                </a>
+                <a href="enderecos" class="linkg">
+                    <p> Endereços </p>
+                </a>
+                <a href="cartoes" class="linkg">
+                    <p> Cartões </p>
+                </a>
+                <a href="autenticacao" class="linkg">
+                    <p> Autenticação </p>
+                </a>
+                <a href="meus-pedidos" class="linkg">
+                    <p> Meus pedidos </p>
+                </a>
+                <a href="index - nologin" class="linkr">
+                    <p> ← Sair da conta </p>
+                </a>
+            </div>
+
+            <div>
+                <label for="nome"> Nome </label> <br> <br>
+                <input id="nome" type="text" placeholder="Alexandre"> <br> <br> <br>
+
+                <label for="email"> E-mail </label> <br> <br>
+                <input id="email" type="email" placeholder="alexandregomes123@hotmail.com"> <br> <br> <br>
+
+                <label for="cpf"> CPF </label> <br> <br>
+                <input id="cpf" type="text" placeholder="123456789-12"> <br> <br> <br>
+
+                <label for="datnasc"> Data de nascimento </label> <br> <br>
+                <input id="datnasc" type="text" placeholder="01/01/1980"> <br> <br> <br> <br>
+            </div>
+
+            <div>
+                <label for="sobnome"> Sobrenome </label> <br> <br>
+                <input id="sobnome" type="text" placeholder="Gomes"> <br> <br> <br>
+
+                <label for="discprof"> Sexo </label> <br> <br>
+                <input list="sex" id="discprof" placeholder="Masculino">
+                <datalist id="sex">
+                    <option value="Masculino">
+                    <option value="Feminino">
+                </datalist> <br> <br>
+
+                <label for="telefone"> Telefone </label> <br> <br>
+                <input id="telefone" type="text" placeholder="(11) 91234-5678"> <br> <br> <br> <br> <br> <br> <br> <br>
+                <br> <br> <br> <br> <br> <br>
+            </div>
+            <div class="buttcontdad">
+                <button class="buttonmcdp"> Aplicar </button>
+            </div>
+        </div> <br> <br> <br> <br> <br>
+    </main>
+
+    <footer id="site-footer">
+        <div id="footer-container">
+            <div id="logof">
+                <a href="index">
+                    <img src="/img/logo.png"></a>
+            </div>
+            <p id="txtf"> <a href="faleconosco"> Fale conosco </a> </p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

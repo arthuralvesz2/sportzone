@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> AKECY - Cadastrar Produtos </title>
+    <link rel="shortcut icon" href="/img/icon.png" type="image/x-icon">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/style.css" />
+    <script type="text/javascript" src="/js/JavaScript.js"></script>
+
+</head>
+
+<body class="noy">
+    <header>
+
+        <div id="principal">
+            <div id="logoh">
+                <a href="index - adm">
+                    <img src="/img/logo.png"></a>
+            </div>
+            <input type="text" id="barra-pesquisa" placeholder="Pesquisar produtos cadastrados.">
+            <div id="usuario-container">
+                <a href="index - nologin">
+                    <img src="/img/user_avatar.png">
+                    <div id="nome-usuario">
+                        <p> Olá, Roberto <br> Sair da conta </p>
+                </a>
+            </div>
+        </div>
+        </div>
+
+        <div id="semi">
+            <div id="categorias-container" class="linksemform">
+                <p> <a href="cadastrar-produtos"> Cadastrar produtos </a> </p>
+                <p> <a href="atualizar-produtos"> Atualizar produtos </a> </p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <form action="index - adm" onsubmit="prodcadastrado()">
+            <div class="cadastrartxt1">
+                <label for="nome"> Nome do produto </label> <br>
+                <input id="nome" type="text" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]+" required
+                    title="Por favor, Digite apenas letras!"> <br>
+            </div>
+
+            <div class="cadastrartxt2">
+                <label for="preco"> Preço </label> <br>
+                <input id="preco" type="text" placeholder="R$ 00.000,00" required> <br>
+            </div>
+
+            <div class="cadastrartxt3">
+                <label for="quantidadeEmEstoque"> Quantidade em estoque </label> <br>
+                <input id="quantidadeEmEstoque" type="text" required> <br>
+            </div>
+
+            <div class="cadastrartxt4">
+                <label for="categoria"> Categoria </label> <br>
+                <input id="categoria" type="text" required> <br>
+            </div>
+
+            <p class="txtcadastrarfor5"> Imagens do produto </p>
+            <div class="cadastrartxt5">
+                <label for="imgprincipal" class="labelcadastrarfor5"> <p class="baixocadastrar"> Foto <br> principal </p> </label> <br>
+                <input id="imgprincipal" type="file" required> <br>
+            </div>
+
+            <label for="imgopcional1" class="labelcadastrarfor51"> <p class="baixocadastrar1234"> Fotos <br> opcionais </p> </label> <br>
+            <input id="imgopcional1" type="file"> <br>
+            
+            <label for="imgopcional2" class="labelcadastrarfor52"> <p class="baixocadastrar1234"> Fotos <br> opcionais </p> </label> <br>
+            <input id="imgopcional2" type="file"> <br>
+            
+            <label for="imgopcional3" class="labelcadastrarfor53"> <p class="baixocadastrar1234"> Fotos <br> opcionais </p> </label> <br>
+            <input id="imgopcional3" type="file"> <br>
+            
+            <label for="imgopcional4" class="labelcadastrarfor54"> <p class="baixocadastrar1234"> Fotos <br> opcionais </p> </label> <br>
+            <input id="imgopcional4" type="file"> <br>
+            
+            <div class="cadastrartxt6">
+                <label for="descricao"> Descrição </label> <br>
+                <textarea id="descricao" rows="16" cols="10"> </textarea> <br>
+            </div>
+
+            <div class="buttcadast">
+                    <button type="submit" class="buttcadastr"> Cadastrar produto </button>
+            </div>
+        </form>
+    </main>
+
+    <div id="centrcadastrar"> </div>
+
+    <footer id="site-footer">
+        <div id="footer-container">
+            <div id="logofa">
+                <a href="index - adm">
+                    <img src="/img/logo.png"></a>
+    </footer>
+
+</body>
+
+</html>
